@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade de Fixação: Especificação e Tipo de Transfusão</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+        .question { margin-top: 20px; }
+        .options { margin-top: 10px; }
+        .option { margin: 5px 0; }
+        .button { margin-top: 20px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        .button:hover { background-color: #45a049; }
+        .result { font-weight: bold; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<h1>Atividade de Fixação: Especificação e Tipo de Transfusão</h1>
+
+<div id="quiz"></div>
+<button class="button" onclick="calculateScore()">Enviar Respostas</button>
+<div id="result" class="result"></div>
+
+<script>
+// Questões e respostas
+const questions = [
+    {
+        question: "No campo 'Especificação', ao solicitar Plasma Fresco Congelado (PFC), qual volume aproximado é considerado por unidade?",
+        options: ["A) 150 mL", "B) 200 mL", "C) 250 mL", "D) 300 mL"],
+        answer: "C"
+    },
+    {
+        question: "Em qual situação é mais adequado solicitar uma 'Transfusão Programada'?",
+        options: [
+            "A) Paciente com sangramento ativo e choque hemorrágico iminente.",
+            "B) Paciente com anemia crônica sem sintomas ou sangramento ativo.",
+            "C) Paciente em parada cardíaca.",
+            "D) Paciente em estado crítico necessitando transfusão em menos de 3 horas."
+        ],
+        answer: "B"
+    },
+    {
+        question: "Quando uma 'Transfusão de Extrema Urgência' é indicada, qual dos seguintes documentos é obrigatório?",
+        options: [
+            "A) Termo de Consentimento para Cirurgia.",
+            "B) Termo de Responsabilidade para Transfusão de Emergência.",
+            "C) Laudo de Justificativa para Anemia.",
+            "D) Termo de Solicitação Não Urgente."
+        ],
+        answer: "B"
+    },
+    {
+        question: "Qual das seguintes opções representa uma justificativa clínica correta para preenchimento no campo 'Especificação' em pacientes com cardiopatia?",
+        options: ["A) Hb < 10 g/dL.", "B) Hb < 9 g/dL.", "C) Hb < 8 g/dL.", "D) Hb < 7 g/dL."],
+        answer: "C"
+    },
+    {
+        question: "Na solicitação de transfusão, o campo 'Indicação Clínica' deve conter qual das seguintes informações?",
+        options: [
+            "A) O histórico familiar de doenças hematológicas.",
+            "B) As condições clínicas que justificam a necessidade da transfusão.",
+            "C) Apenas o diagnóstico principal do paciente.",
+            "D) O tipo sanguíneo do paciente."
+        ],
+        answer: "B"
+    },
+    {
+        question: "Para uma solicitação 'Não Urgente (dentro de 24 horas)', qual é a condição ideal para utilização?",
+        options: [
+            "A) Paciente em sangramento massivo.",
+            "B) Paciente com anemia assintomática sem risco iminente.",
+            "C) Paciente em risco de vida que não pode aguardar tipagem sanguínea.",
+            "D) Paciente com parada respiratória."
+        ],
+        answer: "B"
+    },
+    {
+        question: "Qual é a recomendação para o preenchimento de 'Antecedentes Transfusionais' no campo 'Especificação'?",
+        options: [
+            "A) Informar apenas transfusões realizadas dentro da instituição.",
+            "B) Ignorar o histórico transfusional, pois não é obrigatório.",
+            "C) Registrar se há histórico conhecido de transfusões fora da instituição.",
+            "D) Informar apenas se o paciente possui alergia a hemocomponentes."
+        ],
+        answer: "C"
+    },
+    {
+        question: "Em uma situação em que a transfusão deve ocorrer em até 3 horas para evitar riscos significativos ao paciente, qual tipo de transfusão é indicado?",
+        options: ["A) Programada", "B) Não Urgente", "C) Urgente", "D) Extrema Urgência"],
+        answer: "C"
+    }
+];
+
+// Gerar o questionário
+function loadQuiz() {
+    const quizDiv = document.getElementById("quiz");
+    questions.forEach((q, idx) => {
+        const questionDiv = document.createElement("div");
+        questionDiv.classList.add("question");
+        questionDiv.innerHTML = `<p>${idx + 1}. ${q.question}</p>`;
+        
+        const optionsDiv = document.createElement("div");
+        optionsDiv.classList.add("options");
+        
+        q.options.forEach((option, optIdx) => {
+            const optionDiv = document.createElement("div");
+            optionDiv.classList.add("option");
+            optionDiv.innerHTML = `
+                <label>
+                    <input type="radio" name="question${idx}" value="${option[0]}">
+                    ${option}
+                </label>
+            `;
+            optionsDiv.appendChild(optionDiv);
+        });
+        
+        questionDiv.appendChild(optionsDiv);
+        quizDiv.appendChild(questionDiv);
+    });
+}
+
+// Calcular pontuação
+function calculateScore() {
+    let score = 0;
+    questions.forEach((q, idx) => {
+        const selectedOption = document.querySelector(`input[name="question${idx}"]:checked`);
+        if (selectedOption && selectedOption.value === q.answer) {
+            score += 1;
+        }
+    });
+    document.getElementById("result").innerText = `Você acertou ${score} de ${questions.length} perguntas.`;
+}
+
+// Carregar o quiz ao iniciar a página
+window.onload = loadQuiz;
+</script>
+
+</body>
+</html>
